@@ -4,7 +4,7 @@ import { BabelDescriptor } from "../utils/decorators2"
 import { action, defineBoundAction } from "./action"
 
 function dontReassignFields() {
-    fail(process.env.NODE_ENV !== "production" && "@action fields are not reassignable")
+    fail("@action fields are not reassignable")
 }
 
 export function namedActionDecorator(name: string) {
@@ -29,7 +29,10 @@ export function namedActionDecorator(name: string) {
             return {
                 enumerable: false,
                 configurable: false,
-                writable: process.env.NODE_ENV !== "production", // See #1398
+                // ~~See #1398~~ should always be false; Guilded fix
+                // otherwise things only fail when you build them for prod
+                // which is very not good
+                writable: false,
                 initializer() {
                     // N.B: we can't immediately invoke initializer; this would be wrong
                     return createAction(name, initializer!.call(this))
