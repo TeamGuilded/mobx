@@ -4,7 +4,7 @@ import { BabelDescriptor } from "../utils/decorators2"
 import { action, defineBoundAction } from "./action"
 
 function dontReassignFields() {
-    fail(process.env.NODE_ENV !== "production" && "@action fields are not reassignable")
+    fail("@action fields are not reassignable")
 }
 
 export function namedActionDecorator(name: string) {
@@ -21,7 +21,7 @@ export function namedActionDecorator(name: string) {
                     value: createAction(name, descriptor.value),
                     enumerable: false,
                     configurable: false,
-                    writable: true // for typescript, this must be writable, otherwise it cannot inherit :/ (see inheritable actions test)
+                    writable: false
                 }
             }
             // babel only: @action method = () => {}
