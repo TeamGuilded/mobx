@@ -21,7 +21,7 @@ export function namedActionDecorator(name: string) {
                     value: createAction(name, descriptor.value),
                     enumerable: false,
                     configurable: false,
-                    writable: false
+                    writable: true // for typescript, this must be writable, otherwise it cannot inherit :/ (see inheritable actions test)
                 }
             }
             // babel only: @action method = () => {}
@@ -29,7 +29,7 @@ export function namedActionDecorator(name: string) {
             return {
                 enumerable: false,
                 configurable: false,
-                writable: process.env.NODE_ENV !== "production", // See #1398
+                writable: false, // Guilded edit: this should always fail, not just in prod
                 initializer() {
                     // N.B: we can't immediately invoke initializer; this would be wrong
                     return createAction(name, initializer!.call(this))
