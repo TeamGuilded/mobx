@@ -1,0 +1,22 @@
+import { getObservers, hasObservers, getAtom, unique } from "../internal"
+export function getDependencyTree(thing, property) {
+    return nodeToDependencyTree(getAtom(thing, property))
+}
+function nodeToDependencyTree(node) {
+    var result = {
+        name: node.name
+    }
+    if (node.observing && node.observing.length > 0)
+        result.dependencies = unique(node.observing).map(nodeToDependencyTree)
+    return result
+}
+export function getObserverTree(thing, property) {
+    return nodeToObserverTree(getAtom(thing, property))
+}
+function nodeToObserverTree(node) {
+    var result = {
+        name: node.name
+    }
+    if (hasObservers(node)) result.observers = getObservers(node).map(nodeToObserverTree)
+    return result
+}
