@@ -27,7 +27,7 @@ export class MobXGlobals {
      * N.B: this version is unrelated to the package version of MobX, and is only the version of the
      * internal state storage of MobX, and can be the same across many different package versions
      */
-    version = 5
+    version = 4
 
     /**
      * globally unique token to signal unchanged

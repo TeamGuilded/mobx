@@ -105,9 +105,12 @@ export function shouldCompute(derivation: IDerivation): boolean {
                         try {
                             obj.get()
                         } catch (e) {
-                            // we are not interested in the value *or* exception at this moment, but if there is one, notify all
+                            // notify all
                             untrackedEnd(prevUntracked)
                             allowStateReadsEnd(prevAllowStateReads)
+                            if(process.env.NODE_ENV === 'development') {
+                                throw e
+                            }
                             return true
                         }
                     }
