@@ -16,7 +16,8 @@ export function configure(options: {
         computedRequiresReaction,
         disableErrorBoundaries,
         arrayBuffer,
-        reactionScheduler
+        reactionScheduler,
+        onError
     } = options
     if (enforceActions !== undefined) {
         if (typeof enforceActions !== "boolean" && enforceActions !== "strict")
