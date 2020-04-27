@@ -94,6 +94,9 @@ export function shouldCompute(derivation: IDerivation): boolean {
                             obj.get()
                         } catch (e) {
                             // we are not interested in the value *or* exception at this moment, but if there is one, notify all
+                            if(globalState.onError) {
+                                globalState.onError(e)
+                            }
                             untrackedEnd(prevUntracked)
                             return true
                         }

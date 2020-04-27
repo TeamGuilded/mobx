@@ -9,6 +9,7 @@ export function configure(options: {
     disableErrorBoundaries?: boolean
     arrayBuffer?: number
     reactionScheduler?: (f: () => void) => void
+    onError?: (e: any) => void
 }): void {
     const {
         enforceActions,
@@ -42,5 +43,8 @@ export function configure(options: {
     }
     if (reactionScheduler) {
         setReactionScheduler(reactionScheduler)
+    }
+    if(onError) {
+        globalState.onError = onError
     }
 }
